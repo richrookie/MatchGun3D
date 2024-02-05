@@ -1,7 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Util : MonoBehaviour
 {
+    private static Dictionary<float, WaitForSeconds> waitDic = new Dictionary<float, WaitForSeconds>();
+    public static WaitForSeconds WaitGet(float waitSec)
+    {
+        if (waitDic.TryGetValue(waitSec, out WaitForSeconds waittime)) return waittime;
+        return waitDic[waitSec] = new WaitForSeconds(waitSec);
+    }
+    public static WaitForFixedUpdate waitFixed = new WaitForFixedUpdate();
+
+
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
     {
         T component = go.GetComponent<T>();

@@ -30,9 +30,11 @@ public class GameManager : MonoBehaviour
 
     private UI_GameScene _uiGameScene = null;
     private CameraManager _camManager = null;
+    private GunSpawnManager _gunSpawnManager = null;
 
     public UI_GameScene uiGameScene { get { CheckNull(); return _uiGameScene; } }
     public CameraManager camManager { get { CheckNull(); return _camManager; } }
+    public GunSpawnManager gunSpawnManager { get { CheckNull(); return _gunSpawnManager; } }
 
     public string _iapName = "";
     private bool _stageClear = false;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         if (_uiGameScene == null) _uiGameScene = FindObjectOfType<UI_GameScene>() as UI_GameScene;
         if (_camManager == null) _camManager = FindObjectOfType<CameraManager>() as CameraManager;
+        if (_gunSpawnManager == null) _gunSpawnManager = FindObjectOfType<GunSpawnManager>() as GunSpawnManager;
     }
 
     public void GameReady()
@@ -67,6 +70,8 @@ public class GameManager : MonoBehaviour
 
         PlayMatchAction -= camManager.GameStartMatch;
         PlayMatchAction += camManager.GameStartMatch;
+        PlayMatchAction -= uiGameScene.GameStartMatch;
+        PlayMatchAction += uiGameScene.GameStartMatch;
 
         PlayMatchAction?.Invoke();
     }

@@ -50,7 +50,7 @@ public class Managers : MonoBehaviour
             // === Default Setting === //
 
             GameObject managers = new GameObject { name = "@Managers" };
-            managers.AddComponent<Managers>();
+            managers.GetOrAddComponent<Managers>();
             DontDestroyOnLoad(managers);
             _instance = managers.GetComponent<Managers>();
 
