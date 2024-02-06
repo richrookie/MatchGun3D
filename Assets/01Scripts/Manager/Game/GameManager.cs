@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,10 +28,12 @@ public class GameManager : MonoBehaviour
     private UI_GameScene _uiGameScene = null;
     private CameraManager _camManager = null;
     private GunSpawnManager _gunSpawnManager = null;
+    private MatchPlayManager _matchPlayManager = null;
 
     public UI_GameScene uiGameScene { get { CheckNull(); return _uiGameScene; } }
     public CameraManager camManager { get { CheckNull(); return _camManager; } }
     public GunSpawnManager gunSpawnManager { get { CheckNull(); return _gunSpawnManager; } }
+    public MatchPlayManager matchPlayManager { get { CheckNull(); return _matchPlayManager; } }
 
     public string _iapName = "";
     private bool _stageClear = false;
@@ -46,8 +45,6 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
-        CheckNull();
-
         GameReady();
     }
 
@@ -56,15 +53,21 @@ public class GameManager : MonoBehaviour
         if (_uiGameScene == null) _uiGameScene = FindObjectOfType<UI_GameScene>() as UI_GameScene;
         if (_camManager == null) _camManager = FindObjectOfType<CameraManager>() as CameraManager;
         if (_gunSpawnManager == null) _gunSpawnManager = FindObjectOfType<GunSpawnManager>() as GunSpawnManager;
+        if (_matchPlayManager == null) _matchPlayManager = FindObjectOfType<MatchPlayManager>() as MatchPlayManager;
     }
 
     public void GameReady()
     {
+        CheckNull();
+
+        _camManager.Init();
+        _matchPlayManager.Init();
+
         _curGameState = Define.eGameState.Ready;
     }
 
     private System.Action PlayMatchAction;
-    public void GameStart(Define.eGameState state)
+    public void GameStartMatch(Define.eGameState state)
     {
         _curGameState = state;
 

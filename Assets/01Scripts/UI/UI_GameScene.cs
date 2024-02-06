@@ -39,7 +39,7 @@ public class UI_GameScene : UI_Scene
     {
         GetButton(Buttons.Button_GameStart).onClick.AddListener(() =>
         {
-            Managers.Game.GameStart(Define.eGameState.Play_Match);
+            Managers.Game.GameStartMatch(Define.eGameState.Play_Match);
 
             GetButton(Buttons.Button_GameStart).gameObject.SetActive(false);
         });

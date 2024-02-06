@@ -18,8 +18,11 @@ public class GunSpawnManager : MonoBehaviour
 
             GameObject gun1 = Managers.Resource.Instantiate(gunType.ToString(), this.transform);
             gun1.transform.position += SpwanBoundary();
+            gun1.GetOrAddComponent<MatchGun>().Init(gunType);
+
             GameObject gun2 = Managers.Resource.Instantiate(gunType.ToString(), this.transform);
             gun2.transform.position += SpwanBoundary();
+            gun2.GetOrAddComponent<MatchGun>().Init(gunType);
 
             _gunList.Add(gun1);
             _gunList.Add(gun2);
