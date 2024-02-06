@@ -11,11 +11,14 @@ public class UI_GameScene : UI_Scene
     enum GameObjects
     {
         RoulleteBG,
+        MatchInfo,
     }
 
     private RoulleteManager roulleteMgr = null;
     public RoulleteManager RoulleteMgr => roulleteMgr;
     public System.Collections.Generic.List<Define.eGunType> GunTypeList => RoulleteMgr.GunTypeList;
+
+    public Transform MatchInfoRoot => GetObject(GameObjects.MatchInfo).transform;
 
     private void Awake()
     {

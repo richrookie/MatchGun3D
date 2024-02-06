@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MatchPlayManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class MatchPlayManager : MonoBehaviour
     public static Vector3 MatchScale = Vector3.one * 2.1f;
     public static Vector3 OriginScale = Vector3.one * 3.0f;
 
+    private List<GameObject> _gunInfoList = new List<GameObject>();
+    private Dictionary<Define.eGunType, GameObject> _gunInfoDic = new Dictionary<Define.eGunType, GameObject>();
+
 
     public void Init()
     {
@@ -21,11 +25,12 @@ public class MatchPlayManager : MonoBehaviour
 
         _matchObj = new GameObject[2];
         _matchGun = new MatchGun[2];
+
+        Clear();
     }
 
     public void Selected(GameObject gunObj)
     {
-
         if (_matchObj[0] == null)
         {
             _matchObj[0] = gunObj;
@@ -57,6 +62,8 @@ public class MatchPlayManager : MonoBehaviour
         {// Match !
             _matchGun[0].Match(_matchPos);
             _matchGun[1].Match(_matchPos);
+
+            CheckDicInfo(gunType1);
         }
         else
         {// MisMatch..
@@ -64,7 +71,31 @@ public class MatchPlayManager : MonoBehaviour
             _matchGun[1].MisMatch(Managers.Game.gunSpawnManager.transform);
         }
 
-        Clear();
+
+        for (int i = 0; i < _matchObj.Length; i++)
+        {
+            if (_matchObj[i] != null)
+            {
+                _matchObj[i] = null;
+                _matchGun[i] = null;
+            }
+        }
+    }
+
+    private void CheckDicInfo(Define.eGunType gunType)
+    {
+        if (!_gunInfoDic.ContainsKey(gunType))
+        {
+            GameObject matchInfo = Managers.Resource.Instantiate("UI_MatchInfo", Managers.Game.uiGameScene.MatchInfoRoot.transform);
+            matchInfo.GetComponent<MatchInfo>().Init(gunType);
+
+            _gunInfoList.Add(matchInfo);
+            _gunInfoDic.Add(gunType, matchInfo);
+        }
+        else
+        {
+            _gunInfoDic[gunType].GetComponent<MatchInfo>().Counting();
+        }
     }
 
     private void Clear()
@@ -77,5 +108,14 @@ public class MatchPlayManager : MonoBehaviour
                 _matchGun[i] = null;
             }
         }
+
+        foreach (var list in _gunInfoList)
+        {
+            if (list != null)
+                Managers.Pool.Push(list.GetOrAddComponent<Poolable>());
+        }
+
+        _gunInfoList.Clear();
+        _gunInfoDic.Clear();
     }
 }

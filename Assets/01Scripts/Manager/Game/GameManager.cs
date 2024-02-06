@@ -60,8 +60,10 @@ public class GameManager : MonoBehaviour
     {
         CheckNull();
 
-        _camManager.Init();
-        _matchPlayManager.Init();
+        Managers.Resource.Instantiate("MatchMap");
+
+        camManager.Init();
+        matchPlayManager.Init();
 
         _curGameState = Define.eGameState.Ready;
     }
