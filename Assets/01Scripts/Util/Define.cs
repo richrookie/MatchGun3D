@@ -1,5 +1,7 @@
 ﻿public class Define
 {
+    public static int SpawnCount = 16;
+
     public enum eGameState : byte
     {
         Ready,

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class MatchPlayManager : MonoBehaviour
 {
+    private int CurGunCount = Define.SpawnCount;
+
     private Transform _gunPos1 = null;
     private Transform _gunPos2 = null;
     private Transform _matchPos = null;
@@ -25,6 +27,8 @@ public class MatchPlayManager : MonoBehaviour
 
         _matchObj = new GameObject[2];
         _matchGun = new MatchGun[2];
+
+        CurGunCount = Define.SpawnCount;
 
         Clear();
     }
@@ -53,7 +57,7 @@ public class MatchPlayManager : MonoBehaviour
 
     private async void Match(GameObject[] matchObj)
     {
-        await System.Threading.Tasks.Task.Delay(200);
+        await System.Threading.Tasks.Task.Delay(250);
 
         Define.eGunType gunType1 = _matchGun[0].GunType;
         Define.eGunType gunType2 = _matchGun[1].GunType;
@@ -62,6 +66,11 @@ public class MatchPlayManager : MonoBehaviour
         {// Match !
             _matchGun[0].Match(_matchPos);
             _matchGun[1].Match(_matchPos);
+
+            CurGunCount -= 2;
+
+            if (CurGunCount <= 0)
+                Managers.Game.gunSpawnManager.SpawnGun();
 
             CheckDicInfo(gunType1);
         }

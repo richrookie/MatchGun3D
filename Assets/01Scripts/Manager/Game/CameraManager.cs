@@ -23,7 +23,6 @@ public class CameraManager : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, 100.0f, 1 << 6))
                 {
-                    print(hit.transform.gameObject.name);
                     GameObject hitObj = hit.transform.gameObject;
 
                     Managers.Game.matchPlayManager.Selected(hitObj);

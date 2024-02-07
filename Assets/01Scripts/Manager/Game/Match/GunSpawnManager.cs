@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +5,11 @@ public class GunSpawnManager : MonoBehaviour
 {
     private List<GameObject> _gunList = new List<GameObject>();
 
-    private readonly int SpawnCount = 16;
-
     public void SpawnGun()
     {
         List<Define.eGunType> gunTypeList = Managers.Game.uiGameScene.GunTypeList;
 
-        for (int i = 0; i < SpawnCount / 2; i++)
+        for (int i = 0; i < Define.SpawnCount / 2; i++)
         {
             Define.eGunType gunType = gunTypeList[Random.Range(0, 3)];
 

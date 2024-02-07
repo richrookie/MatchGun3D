@@ -50,9 +50,8 @@ public class Managers : MonoBehaviour
             // === Default Setting === //
 
             GameObject managers = new GameObject { name = "@Managers" };
-            managers.GetOrAddComponent<Managers>();
+            _instance = managers.GetOrAddComponent<Managers>();
             DontDestroyOnLoad(managers);
-            _instance = managers.GetComponent<Managers>();
 
             GameObject SceneTransition = Managers.Resource.Instantiate("SceneTransition");
             SceneTransition.transform.SetParent(_instance.transform);

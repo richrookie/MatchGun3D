@@ -28,7 +28,7 @@ public class RoulleteManager : MonoBehaviour
     public void GameStartMatch()
     {
         for (int i = 0; i < MaxRoulleteSlotCount; i++)
-            roulleteImgSpawn[i].GameStartMatch(15 + i * 6, i);
+            roulleteImgSpawn[i].GameStartMatch(12 + i * 5, i);
     }
 
     public void PickImg(Define.eGunType gunType)
